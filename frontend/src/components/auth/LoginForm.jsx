@@ -14,7 +14,7 @@ export function LoginForm() {
             id="email"
             name="email"
             type="text"
-            className="p-2 rounded-lg border border-gray-200 focus:outline focus:outline-blue-800 shadow-md"
+            className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
           />
         </div>
         <div className="mb-2 grid gap-2">
@@ -24,7 +24,7 @@ export function LoginForm() {
             id="password"
             name="password"
             type="password"
-            className="p-2 rounded-lg border border-gray-200 focus:outline focus:outline-blue-800 shadow-md"
+            className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
           />
         </div>
         <button

@@ -36,7 +36,9 @@ export function LoginForm() {
       </form>
       <div className="text-center text-sm">
         <p>¿No tienes una cuenta?</p>
-        <Link className="underline">Registrate</Link>
+        <Link to="/register" className="underline">
+          Registrate
+        </Link>
       </div>
     </div>
   );

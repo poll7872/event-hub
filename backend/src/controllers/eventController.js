@@ -35,7 +35,7 @@ export const getAllEvents = async (req, res) => {
   try {
     const events = await Event.find()
       .populate("createdBy", "firstname lastname email")
-      .populate("speakers", "name expertise");
+      .populate("speakers", "firstname lastname expertise");
 
     res.status(200).json(events);
   } catch (error) {

@@ -48,7 +48,7 @@ export const getAllEvents = async (req, res) => {
 //Método para actualizar un evento
 export const updateEvent = async (req, res) => {
   const id = req.params.id;
-  const { title, description, date, location } = req.body;
+  const { title, description, date, location, speakers } = req.body;
 
   try {
     if (req.user.role !== "admin") {
@@ -64,6 +64,7 @@ export const updateEvent = async (req, res) => {
         description,
         date,
         location,
+        speakers,
       },
       {
         new: true,

@@ -1,9 +1,53 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../api/auth";
 
 export function LoginForm() {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const loginUser = await login(user);
+      console.log(loginUser);
+
+      //Guardar token y rol en localStorage
+      localStorage.setItem("token", loginUser.token);
+      localStorage.setItem("role", loginUser.role);
+
+      //Redirigir de acuerdo al role
+      if (loginUser.role === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate("/home");
+      }
+
+      //Limpiar form
+      setUser({
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      console.error("Error al iniciar sesión", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+
   return (
     <div className="p-4 m-auto rounded-lg">
-      <form className="mt-3">
+      <form className="mt-3" onSubmit={handleSubmit}>
         <legend className="text-2xl font-bold text-center mb-2">
           Bienvenido
         </legend>
@@ -13,8 +57,10 @@ export function LoginForm() {
             placeholder="Ingresa tu correo..."
             id="email"
             name="email"
+            value={user.email}
             type="text"
             className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
+            onChange={handleChange}
           />
         </div>
         <div className="mb-2 grid gap-2">
@@ -23,8 +69,10 @@ export function LoginForm() {
             placeholder="Ingresa tu contraseña..."
             id="password"
             name="password"
+            value={user.password}
             type="password"
             className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
+            onChange={handleChange}
           />
         </div>
         <button

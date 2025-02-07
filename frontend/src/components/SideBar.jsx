@@ -18,7 +18,7 @@ export function SideBar() {
           </li>
           <li className="flex flex-col items-center hover:bg-white rounded-lg hover:text-blue-800 p-1 cursor-pointer">
             <CalendarFilled className="text-2xl" />
-            <Link>Eventos</Link>
+            <Link to="/events">Eventos</Link>
           </li>
 
           <li className="flex flex-col items-center hover:bg-white rounded-lg hover:text-blue-800 p-1 cursor-pointer">

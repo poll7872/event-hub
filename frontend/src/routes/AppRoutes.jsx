@@ -4,6 +4,7 @@ import { Register } from "../pages/public/Register";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { Dashboard } from "../pages/admin/Dashboard";
 import { Home } from "../pages/public/Home";
+import { Events } from "../pages/admin/Events";
 
 export function AppRoutes() {
   return (
@@ -13,12 +14,20 @@ export function AppRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
 
-        {/*Ruta protegida solo para users con rol admin*/}
+        {/*Rutas protegidas solo para users con rol admin*/}
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute role="admin">
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/events"
+          element={
+            <ProtectedRoute role="admin">
+              <Events />
             </ProtectedRoute>
           }
         />

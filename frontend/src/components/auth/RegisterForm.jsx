@@ -1,17 +1,57 @@
+import { useState } from "react";
+import { register } from "../../api/auth";
+
 export function RegisterForm() {
+  const [user, setUser] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    role: "user",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const createdUser = await register(user);
+      console.log(createdUser);
+      //Limpiar el form
+      setUser({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        role: "user",
+      });
+    } catch (error) {
+      console.error("Error al registrar usuario: ", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+
   return (
-    <form className="mt-3 p-4">
+    <form className="mt-3 p-4" onSubmit={handleSubmit}>
       <legend className="text-2xl font-bold text-center mb-2">
         Regístrate
       </legend>
       <div className="mb-4 grid gap-2">
-        <label htmlFor="name">Nombre</label>
+        <label htmlFor="firstname">Nombre</label>
         <input
           placeholder="Ingresa tu correo..."
-          id="name"
-          name="name"
+          id="firstname"
+          name="firstname"
+          value={user.firstname}
           type="text"
           className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
+          onChange={handleChange}
         />
       </div>
       <div className="mb-4 grid gap-2">
@@ -20,8 +60,10 @@ export function RegisterForm() {
           placeholder="Ingresa tu correo..."
           id="lastname"
           name="lastname"
+          value={user.lastname}
           type="text"
           className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
+          onChange={handleChange}
         />
       </div>
       <div className="mb-4 grid gap-2">
@@ -30,8 +72,10 @@ export function RegisterForm() {
           placeholder="Ingresa tu correo..."
           id="email"
           name="email"
+          value={user.email}
           type="text"
           className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
+          onChange={handleChange}
         />
       </div>
       <div className="mb-2 grid gap-2">
@@ -40,8 +84,10 @@ export function RegisterForm() {
           placeholder="Ingresa tu contraseña..."
           id="password"
           name="password"
+          value={user.password}
           type="password"
           className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
+          onChange={handleChange}
         />
       </div>
       <button

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../api/auth";
+import { useAuth } from "../../context/AuthContext";
 
 export function LoginForm() {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -14,11 +15,7 @@ export function LoginForm() {
 
     try {
       const loginUser = await login(user);
-      console.log(loginUser);
-
-      //Guardar token y rol en localStorage
-      localStorage.setItem("token", loginUser.token);
-      localStorage.setItem("role", loginUser.role);
+      login(loginUser);
 
       //Redirigir de acuerdo al role
       if (loginUser.role === "admin") {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { login as loginApi } from "../../api/auth";
 import { useAuth } from "../../context/AuthContext";
 
 export function LoginForm() {
@@ -14,7 +15,7 @@ export function LoginForm() {
     e.preventDefault();
 
     try {
-      const loginUser = await login(user);
+      const loginUser = await loginApi(user);
       login(loginUser);
 
       //Redirigir de acuerdo al role

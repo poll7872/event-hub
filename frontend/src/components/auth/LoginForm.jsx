@@ -4,6 +4,8 @@ import { login as loginApi } from "../../api/auth";
 import { useAuth } from "../../context/AuthContext";
 
 export function LoginForm() {
+  const [error, setError] = useState("");
+  const [isLoading, setIsloading] = useState(false);
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -13,6 +15,15 @@ export function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    //Validar campos no esten vacios
+    if (!user.email || !user.password) {
+      setError("Por favor, completa todos los campos");
+      return;
+    }
+
+    setIsloading(true);
+    setError("");
 
     try {
       const loginUser = await loginApi(user);
@@ -32,6 +43,9 @@ export function LoginForm() {
       });
     } catch (error) {
       console.error("Error al iniciar sesión", error);
+      setError("Error al iniciar sesión, comprueba el email o password");
+    } finally {
+      setIsloading(false);
     }
   };
 
@@ -49,6 +63,7 @@ export function LoginForm() {
         <legend className="text-2xl font-bold text-center mb-2">
           Bienvenido
         </legend>
+        {error && <p className="text-red-500 text-center w-96 mb-4">{error}</p>}
         <div className="mb-4 grid gap-2">
           <label htmlFor="email">Correo</label>
           <input
@@ -77,7 +92,7 @@ export function LoginForm() {
           className="bg-blue-800 hover:bg-blue-700 cursor-pointer text-white font-bold w-full rounded-lg p-2 my-4"
           type="submit"
         >
-          Ingresar
+          {isLoading ? "Ingresando ..." : "Ingresar"}
         </button>
       </form>
       <div className="text-center text-sm">

@@ -3,7 +3,7 @@ import { useState } from "react";
 export function useForm(initialState, validate) {
   const [values, setValues] = useState(initialState); //Estado del form
   const [errors, setErrors] = useState({}); //Estados de validación
-  const [isLoading, setLoading] = useState(false); //Estados de carga
+  const [isLoading, setIsLoading] = useState(false); //Estados de carga
 
   //Función para manejar cambios en los inputs
   const handleChange = (e) => {
@@ -27,7 +27,15 @@ export function useForm(initialState, validate) {
     setErrors({});
   };
 
-  return (
-    values, errors, isLoading, setLoading, handleChange, validateForm, resetForm
-  );
+  return {
+    values,
+    setValues,
+    errors,
+    setErrors,
+    isLoading,
+    setIsLoading,
+    handleChange,
+    validateForm,
+    resetForm,
+  };
 }

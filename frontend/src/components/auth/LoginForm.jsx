@@ -1,32 +1,42 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login as loginApi } from "../../api/auth";
 import { useAuth } from "../../context/AuthContext";
+import { useForm } from "../../hooks/useForm";
+import { validationLoginForm } from "../../utils/validations";
 
 export function LoginForm() {
-  const [error, setError] = useState("");
-  const [isLoading, setIsloading] = useState(false);
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
+  const {
+    values,
+    setValues,
+    errors,
+    setErrors,
+    isLoading,
+    setIsLoading,
+    handleChange,
+    validateForm,
+  } = useForm(
+    {
+      email: "",
+      password: "",
+    },
+    validationLoginForm,
+  );
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //Validar campos no esten vacios
-    if (!user.email || !user.password) {
-      setError("Por favor, completa todos los campos");
+    //Validar el form
+    if (!validateForm()) {
       return;
     }
 
-    setIsloading(true);
-    setError("");
+    setIsLoading(true);
 
     try {
-      const loginUser = await loginApi(user);
+      const loginUser = await loginApi(values);
       login(loginUser);
 
       //Redirigir de acuerdo al role
@@ -37,24 +47,16 @@ export function LoginForm() {
       }
 
       //Limpiar form
-      setUser({
+      setValues({
         email: "",
         password: "",
       });
     } catch (error) {
       console.error("Error al iniciar sesión", error);
-      setError("Error al iniciar sesión, comprueba el email o password");
+      setErrors({ submit: "Verifica tus credenciales." });
     } finally {
-      setIsloading(false);
+      setIsLoading(false);
     }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser({
-      ...user,
-      [name]: value,
-    });
   };
 
   return (
@@ -63,18 +65,23 @@ export function LoginForm() {
         <legend className="text-2xl font-bold text-center mb-2">
           Bienvenido
         </legend>
-        {error && <p className="text-red-500 text-center w-96 mb-4">{error}</p>}
+        {errors.submit && (
+          <p className="text-red-500 text-center w-96 mb-4">{errors.submit}</p>
+        )}
         <div className="mb-4 grid gap-2">
           <label htmlFor="email">Correo</label>
           <input
             placeholder="Ingresa tu correo..."
             id="email"
             name="email"
-            value={user.email}
-            type="text"
+            value={values.email}
+            type="email"
             className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
             onChange={handleChange}
           />
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email}</p>
+          )}
         </div>
         <div className="mb-2 grid gap-2">
           <label htmlFor="password">Contraseña</label>
@@ -82,15 +89,19 @@ export function LoginForm() {
             placeholder="Ingresa tu contraseña..."
             id="password"
             name="password"
-            value={user.password}
+            value={values.password}
             type="password"
             className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
             onChange={handleChange}
           />
+          {errors.password && (
+            <p className="text-red-500 text-sm">{errors.password}</p>
+          )}
         </div>
         <button
           className="bg-blue-800 hover:bg-blue-700 cursor-pointer text-white font-bold w-full rounded-lg p-2 my-4"
           type="submit"
+          disabled={isLoading}
         >
           {isLoading ? "Ingresando ..." : "Ingresar"}
         </button>

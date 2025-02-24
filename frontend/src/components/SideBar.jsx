@@ -1,12 +1,22 @@
 import {
+  ArrowExitFilled,
   CalendarFilled,
   HomeFilled,
   MicFilled,
   PeopleAudienceFilled,
 } from "@fluentui/react-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export function SideBar() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <aside className="bg-blue-800 text-white font-bold text-sm h-screen w-32 rounded-r-lg">
       <img className="relative left-3" src="/logo.png" />
@@ -29,6 +39,14 @@ export function SideBar() {
           <li className="flex flex-col items-center hover:bg-white rounded-lg hover:text-blue-800 p-1 cursor-pointer">
             <PeopleAudienceFilled className="text-2xl" />
             <Link>Registrados</Link>
+          </li>
+
+          <li
+            className="flex flex-col items-center hover:bg-white rounded-lg hover:text-blue-800 p-1 cursor-pointer mt-18"
+            onClick={handleLogout}
+          >
+            <ArrowExitFilled className="text-2xl" />
+            <Link>Cerrar Sesión</Link>
           </li>
         </ul>
       </nav>

@@ -2,7 +2,8 @@ import { AddCircleFilled, SearchRegular } from "@fluentui/react-icons";
 import { SideBar } from "../../components/SideBar";
 import { Table } from "../../components/Table";
 import { Modal } from "../../components/Modal";
-import { useState } from "react";
+import { useModal } from "../../hooks/useModal";
+import { EventForm } from "../../components/EventForm";
 
 export function Events() {
   const columns = ["Titulo", "Descripcion", "Fecha", "Ubicacion"];
@@ -20,7 +21,8 @@ export function Events() {
       Ubicacion: "Bogotá",
     },
   ];
-  const [isEventModalOpen, setEventModalOpen] = useState(false);
+
+  const addEventModal = useModal();
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -28,7 +30,10 @@ export function Events() {
       <div className="flex-1 p-6 bg-white shadow-md rounded-lg m-4">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-blue-800">Eventos</h1>
-          <button className="bg-blue-800 hover:bg-blue-700 text-white px-4 py-2 flex items-center gap-2 rounded-lg shadow cursor-pointer border-none">
+          <button
+            onClick={addEventModal.openModal}
+            className="bg-blue-800 hover:bg-blue-700 text-white px-4 py-2 flex items-center gap-2 rounded-lg shadow cursor-pointer border-none"
+          >
             <AddCircleFilled className="text-xl" />
             Crear Evento
           </button>
@@ -53,7 +58,9 @@ export function Events() {
       </div>
 
       {/*MODALS*/}
-      <Modal></Modal>
+      <Modal isOpen={addEventModal.isOpen} onClose={addEventModal.closeModal}>
+        <EventForm />
+      </Modal>
     </div>
   );
 }

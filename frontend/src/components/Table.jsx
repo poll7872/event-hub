@@ -1,3 +1,5 @@
+import { CalendarEditFilled, DeleteFilled } from "@fluentui/react-icons";
+
 export function Table({ columns, data }) {
   return (
     <div className="overflow-x-auto w-5xl mx-auto my-5">
@@ -12,19 +14,24 @@ export function Table({ columns, data }) {
                 {colName}
               </th>
             ))}
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {data.map((row, rowIndex) => (
             <tr
               key={rowIndex}
-              className={rowIndex % 2 === 0 ? "bg-blue-100" : "bg-blue-200"}
+              className={rowIndex % 2 === 0 ? "bg-gray-50" : "bg-gray-200"}
             >
               {columns.map((colName, colIndex) => (
                 <td key={colIndex} className="text-left px-4 py-2">
                   {row[colName]}
                 </td>
               ))}
+              <td className="flex justify-center gap-2 mt-2">
+                <CalendarEditFilled className="text-2xl text-green-600 cursor-pointer" />
+                <DeleteFilled className="text-2xl text-red-600 cursor-pointer" />
+              </td>
             </tr>
           ))}
         </tbody>

@@ -1,29 +1,59 @@
-import { AddCircleFilled } from "@fluentui/react-icons";
+import { AddCircleFilled, SearchRegular } from "@fluentui/react-icons";
 import { SideBar } from "../../components/SideBar";
 import { Table } from "../../components/Table";
+import { Modal } from "../../components/Modal";
+import { useState } from "react";
 
 export function Events() {
-  const columns = ["Titulo", "Descripcion", "Fecha", "Ubicacion", "Acciones"];
+  const columns = ["Titulo", "Descripcion", "Fecha", "Ubicacion"];
   const data = [
     {
       Titulo: "Prueba",
       Descripcion: "descripcion prueba",
       Fecha: "05-30-23",
       Ubicacion: "Cali",
-      Acciones: "ELiminar",
+    },
+    {
+      Titulo: "Conferencia de Tecnología",
+      Descripcion: "Evento anual de tecnología",
+      Fecha: "06-15-23",
+      Ubicacion: "Bogotá",
     },
   ];
+  const [isEventModalOpen, setEventModalOpen] = useState(false);
+
   return (
-    <div className="flex gap-4">
+    <div className="flex min-h-screen bg-gray-100">
       <SideBar />
-      <div className="w-full">
-        <h1 className="text-xl font-bold text-blue-800 my-4">Eventos</h1>
-        <button className="cursor-pointer bg-blue-800 hover:bg-blue-700 text-white p-2 flex items-center gap-1 rounded-lg">
-          Agregar
-          <AddCircleFilled />
-        </button>
-        <Table columns={columns} data={data} />
+      <div className="flex-1 p-6 bg-white shadow-md rounded-lg m-4">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold text-blue-800">Eventos</h1>
+          <button className="bg-blue-800 hover:bg-blue-700 text-white px-4 py-2 flex items-center gap-2 rounded-lg shadow cursor-pointer border-none">
+            <AddCircleFilled className="text-xl" />
+            Crear Evento
+          </button>
+        </div>
+
+        {/* Contenedor de búsqueda */}
+        <div className="flex flex-col">
+          <div className="flex justify-start mb-4">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Buscar evento..."
+                className="border border-gray-300 rounded-lg py-2 pl-10 pr-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <SearchRegular className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-2xl" />
+            </div>
+          </div>
+
+          {/* Tabla */}
+          <Table columns={columns} data={data} />
+        </div>
       </div>
+
+      {/*MODALS*/}
+      <Modal></Modal>
     </div>
   );
 }

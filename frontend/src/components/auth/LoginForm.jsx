@@ -3,6 +3,7 @@ import { login as loginApi } from "../../api/auth";
 import { useAuth } from "../../context/AuthContext";
 import { useForm } from "../../hooks/useForm";
 import { validationLoginForm } from "../../utils/validations";
+import { Button } from "../Button";
 
 export function LoginForm() {
   const {
@@ -83,7 +84,7 @@ export function LoginForm() {
             <p className="text-red-500 text-sm">{errors.email}</p>
           )}
         </div>
-        <div className="mb-2 grid gap-2">
+        <div className="mb-6 grid gap-2">
           <label htmlFor="password">Contraseña</label>
           <input
             placeholder="Ingresa tu contraseña..."
@@ -98,15 +99,12 @@ export function LoginForm() {
             <p className="text-red-500 text-sm">{errors.password}</p>
           )}
         </div>
-        <button
-          className="bg-blue-800 hover:bg-blue-700 cursor-pointer text-white font-bold w-full rounded-lg p-2 my-4"
-          type="submit"
-          disabled={isLoading}
-        >
+
+        <Button type="submit" size="large" disabled={isLoading}>
           {isLoading ? "Ingresando ..." : "Ingresar"}
-        </button>
+        </Button>
       </form>
-      <div className="text-center text-sm">
+      <div className="text-center text-sm my-4">
         <p>¿No tienes una cuenta?</p>
         <Link to="/register" className="underline">
           Registrate

@@ -9,7 +9,7 @@ export function Button({
   disabled = false,
   loading = false,
   icon,
-  iconPosition,
+  iconPosition = "left",
 }) {
   // Estilos base del botón
   const baseStyles =
@@ -18,7 +18,7 @@ export function Button({
   // Estilos de color
   const colorStyles = {
     primary:
-      "bg-blue-500 text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
+      "bg-blue-800 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 cursor-pointer",
     secondary:
       "bg-gray-500 text-white hover:bg-gray-600 focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50",
     danger:
@@ -31,7 +31,7 @@ export function Button({
   const sizeStyles = {
     small: "px-3 py-1 text-sm",
     medium: "px-4 py-2 text-base",
-    large: "px-6 py-3 text-lg",
+    large: "px-6 py-2 text-base w-full",
   };
 
   // Combinar todos los estilos

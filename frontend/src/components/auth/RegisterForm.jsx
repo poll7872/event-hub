@@ -1,6 +1,7 @@
 import { register } from "../../api/auth";
 import { useForm } from "../../hooks/useForm";
 import { validationRegisterForm } from "../../utils/validations";
+import { Button } from "../Button";
 
 export function RegisterForm() {
   const {
@@ -109,7 +110,7 @@ export function RegisterForm() {
         {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
       </div>
 
-      <div className="mb-2 grid gap-2">
+      <div className="mb-5 grid gap-2">
         <label htmlFor="password">Contraseña</label>
         <input
           placeholder="Ingresa tu contraseña..."
@@ -125,13 +126,9 @@ export function RegisterForm() {
         )}
       </div>
 
-      <button
-        className="bg-blue-800 hover:bg-blue-700 cursor-pointer text-white font-bold w-full rounded-lg p-2 my-4"
-        type="submit"
-        disabled={isLoading}
-      >
-        {isLoading ? "Registrando ..." : "Registrar"}
-      </button>
+      <Button size="large" type="submit" disabled={isLoading}>
+        {isLoading ? "Registrando..." : "Registrar"}
+      </Button>
     </form>
   );
 }

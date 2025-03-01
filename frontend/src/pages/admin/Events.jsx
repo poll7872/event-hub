@@ -4,6 +4,7 @@ import { Table } from "../../components/Table";
 import { Modal } from "../../components/Modal";
 import { useModal } from "../../hooks/useModal";
 import { EventForm } from "../../components/EventForm";
+import { Button } from "../../components/Button";
 
 export function Events() {
   const columns = ["Titulo", "Descripcion", "Fecha", "Ubicacion"];
@@ -30,13 +31,13 @@ export function Events() {
       <div className="flex-1 p-6 bg-white shadow-md rounded-lg m-4">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-blue-800">Eventos</h1>
-          <button
+          <Button
+            size="medium"
+            icon={<AddCircleFilled className="text-xl" />}
             onClick={addEventModal.openModal}
-            className="bg-blue-800 hover:bg-blue-700 text-white px-4 py-2 flex items-center gap-2 rounded-lg shadow cursor-pointer border-none"
           >
-            <AddCircleFilled className="text-xl" />
             Crear Evento
-          </button>
+          </Button>
         </div>
 
         {/* Contenedor de búsqueda */}

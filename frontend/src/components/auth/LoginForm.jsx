@@ -100,7 +100,12 @@ export function LoginForm() {
           )}
         </div>
 
-        <Button type="submit" size="large" disabled={isLoading}>
+        <Button
+          loading={isLoading}
+          type="submit"
+          size="large"
+          disabled={isLoading}
+        >
           {isLoading ? "Ingresando ..." : "Ingresar"}
         </Button>
       </form>

@@ -24,3 +24,22 @@
     font-family: var(--font-geist);
   }
 }
+
+/* Estilos personalizados para el scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px; /* Grosor del scroll */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #e2e8f0; /* Color del track (gray-200) */
+  border-radius: 9999px; /* Redondez del track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1e40af; /* Color del thumb (blue-800) */
+  border-radius: 9999px; /* Redondez del thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #1e3a8a; /* Color del thumb al pasar el mouse */
+}

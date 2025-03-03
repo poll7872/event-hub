@@ -33,7 +33,7 @@ export function SideBar() {
 
           <li className="flex flex-col items-center hover:bg-white rounded-lg hover:text-blue-800 p-1 cursor-pointer">
             <MicFilled className="text-2xl" />
-            <Link>Speakers</Link>
+            <Link to="/speakers">Speakers</Link>
           </li>
 
           <li className="flex flex-col items-center hover:bg-white rounded-lg hover:text-blue-800 p-1 cursor-pointer">

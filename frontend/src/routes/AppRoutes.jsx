@@ -6,6 +6,7 @@ import { Dashboard } from "../pages/admin/Dashboard";
 import { Home } from "../pages/public/Home";
 import { Events } from "../pages/admin/Events";
 import { AuthProvider } from "../context/AuthContext";
+import { Speakers } from "../pages/admin/Speakers";
 
 export function AppRoutes() {
   return (
@@ -30,6 +31,14 @@ export function AppRoutes() {
             element={
               <ProtectedRoute role="admin">
                 <Events />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/speakers"
+            element={
+              <ProtectedRoute role="admin">
+                <Speakers />
               </ProtectedRoute>
             }
           />

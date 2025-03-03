@@ -3,7 +3,7 @@ import { login as loginApi } from "../../api/auth";
 import { useAuth } from "../../context/AuthContext";
 import { useForm } from "../../hooks/useForm";
 import { validationLoginForm } from "../../utils/validations";
-import { Button } from "../Button";
+import { Form } from "../Form";
 
 export function LoginForm() {
   const {
@@ -22,6 +22,21 @@ export function LoginForm() {
     },
     validationLoginForm,
   );
+
+  const fields = [
+    {
+      name: "email",
+      label: "Correo",
+      type: "email",
+      placeholder: "Ingresa tu correo...",
+    },
+    {
+      name: "password",
+      label: "Contraseña",
+      type: "password",
+      placeholder: "Ingresa tu contraseña...",
+    },
+  ];
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -62,53 +77,16 @@ export function LoginForm() {
 
   return (
     <div className="p-4 m-auto rounded-lg">
-      <form className="mt-3" onSubmit={handleSubmit}>
-        <legend className="text-2xl font-bold text-center mb-2">
-          Bienvenido
-        </legend>
-        {errors.submit && (
-          <p className="text-red-500 text-center w-96 mb-4">{errors.submit}</p>
-        )}
-        <div className="mb-4 grid gap-2">
-          <label htmlFor="email">Correo</label>
-          <input
-            placeholder="Ingresa tu correo..."
-            id="email"
-            name="email"
-            value={values.email}
-            type="email"
-            className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
-            onChange={handleChange}
-          />
-          {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email}</p>
-          )}
-        </div>
-        <div className="mb-6 grid gap-2">
-          <label htmlFor="password">Contraseña</label>
-          <input
-            placeholder="Ingresa tu contraseña..."
-            id="password"
-            name="password"
-            value={values.password}
-            type="password"
-            className="p-2 rounded-lg border-b-4 border-gray-200 outline-none focus:border-blue-800"
-            onChange={handleChange}
-          />
-          {errors.password && (
-            <p className="text-red-500 text-sm">{errors.password}</p>
-          )}
-        </div>
-
-        <Button
-          loading={isLoading}
-          type="submit"
-          size="large"
-          disabled={isLoading}
-        >
-          {isLoading ? "Ingresando ..." : "Ingresar"}
-        </Button>
-      </form>
+      <Form
+        title="Bienvenido"
+        fields={fields}
+        errors={errors}
+        values={values}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+        buttonText="Ingresar"
+      />
       <div className="text-center text-sm my-4">
         <p>¿No tienes una cuenta?</p>
         <Link to="/register" className="underline">

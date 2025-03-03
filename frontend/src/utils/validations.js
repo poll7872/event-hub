@@ -44,3 +44,29 @@ export function validationRegisterForm(values) {
 
   return errors;
 }
+
+export function validationEventForm(values) {
+  const errors = {};
+
+  //Validar el title
+  if (!values.title) {
+    errors.title = "El titulo es requerido";
+  }
+
+  //Validar description
+  if (!values.description) {
+    errors.description = "La descripción es requerida";
+  } else if (values.description.length <= 60) {
+    errors.description = "La descripción debe ser max 60 caracteres";
+  }
+
+  if (!values.date) {
+    errors.date = "La fecha es requerida";
+  }
+
+  if (!values.speakers) {
+    errors.speakers = "El speaker es requerido";
+  }
+
+  return errors;
+}

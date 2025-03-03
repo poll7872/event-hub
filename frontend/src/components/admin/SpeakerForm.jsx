@@ -1,8 +1,11 @@
 import { createSpeaker } from "../../api/speaker";
+import { useAuth } from "../../context/AuthContext";
 import { useForm } from "../../hooks/useForm";
+import { validationSpeakerForm } from "../../utils/validations";
 import { Form } from "../Form";
 
 export function SpeakerForm() {
+  const { user } = useAuth();
   const {
     values,
     setValues,
@@ -12,12 +15,15 @@ export function SpeakerForm() {
     setIsLoading,
     handleChange,
     validateForm,
-  } = useForm({
-    firstname: "",
-    lastname: "",
-    bio: "",
-    expertise: "",
-  });
+  } = useForm(
+    {
+      firstname: "",
+      lastname: "",
+      bio: "",
+      expertise: "",
+    },
+    validationSpeakerForm,
+  );
 
   const fields = [
     {
@@ -56,7 +62,7 @@ export function SpeakerForm() {
     setIsLoading(true);
 
     try {
-      await createSpeaker(values);
+      await createSpeaker(values, user.token);
 
       //Limpiar el Form
       setValues({

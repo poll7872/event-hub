@@ -87,14 +87,14 @@ export function validationSpeakerForm(values) {
   //Validar Biografia
   if (!values.bio) {
     errors.bio = "La Biografia es requerida";
-  } else if (values.bio.length <= 50) {
+  } else if (values.bio.length > 0 && values.bio.lenght <= 50) {
     errors.bio = "La descripción debe ser max 50 caracteres";
   }
 
   //Validar conocimientos
   if (!values.expertise) {
     errors.expertise = "Los conocimientos son requeridos";
-  } else if (values.expertise.length <= 50) {
+  } else if (values.expertise.length > 0 && values.expertise.lenght <= 50) {
     errors.expertise = "Los conocimientos deben ser max 50 caracteres";
   }
 

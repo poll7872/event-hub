@@ -11,7 +11,7 @@ export function Form({
   buttonText,
 }) {
   return (
-    <form className="mt-3 p-4" onSubmit={onSubmit}>
+    <form className="mt-3" onSubmit={onSubmit}>
       <legend className="text-2xl font-bold text-center mb-2">{title}</legend>
 
       {errors?.submit && (

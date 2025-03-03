@@ -1,8 +1,17 @@
 import { axiosIntance } from "./axiosInstance";
 
-export const createSpeaker = async (speaker) => {
+export const createSpeaker = async (speaker, token) => {
   try {
-    const response = await axiosIntance.post("/speaker/createSpeaker", speaker);
+    const config = {
+      headers: {
+        Authorization: token,
+      },
+    };
+    const response = await axiosIntance.post(
+      "/speaker/createSpeaker",
+      speaker,
+      config,
+    );
     return response.data;
   } catch (error) {
     console.error("Error creating speaker", error);

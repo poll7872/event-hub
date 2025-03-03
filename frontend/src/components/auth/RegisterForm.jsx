@@ -1,7 +1,6 @@
 import { register } from "../../api/auth";
 import { useForm } from "../../hooks/useForm";
 import { validationRegisterForm } from "../../utils/validations";
-import { Button } from "../Button";
 import { Form } from "../Form";
 
 export function RegisterForm() {

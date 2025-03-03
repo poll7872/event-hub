@@ -3,8 +3,8 @@ import { SideBar } from "../../components/SideBar";
 import { Table } from "../../components/Table";
 import { Modal } from "../../components/Modal";
 import { useModal } from "../../hooks/useModal";
-import { EventForm } from "../../components/admin/EventForm";
 import { Button } from "../../components/Button";
+import { SpeakerForm } from "../../components/admin/SpeakerForm";
 
 export function Speakers() {
   const columns = ["Titulo", "Descripcion", "Fecha", "Ubicacion"];
@@ -60,7 +60,7 @@ export function Speakers() {
 
       {/*MODALS*/}
       <Modal isOpen={addEventModal.isOpen} onClose={addEventModal.closeModal}>
-        <EventForm />
+        <SpeakerForm />
       </Modal>
     </div>
   );

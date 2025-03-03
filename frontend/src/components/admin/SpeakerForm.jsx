@@ -1,6 +1,24 @@
+import { createSpeaker } from "../../api/speaker";
+import { useForm } from "../../hooks/useForm";
 import { Form } from "../Form";
 
 export function SpeakerForm() {
+  const {
+    values,
+    setValues,
+    errors,
+    setErrors,
+    isLoading,
+    setIsLoading,
+    handleChange,
+    validateForm,
+  } = useForm({
+    firstname: "",
+    lastname: "",
+    bio: "",
+    expertise: "",
+  });
+
   const fields = [
     {
       name: "firstname",
@@ -27,7 +45,47 @@ export function SpeakerForm() {
       placeholder: "Ingresa sus conocimientos...",
     },
   ];
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      await createSpeaker(values);
+
+      //Limpiar el Form
+      setValues({
+        firstname: "",
+        lastname: "",
+        bio: "",
+        expertise: "",
+      });
+
+      //Limpiar errores
+      setErrors({});
+    } catch (error) {
+      console.error("Error al crear speaker: ", error);
+      setErrors({ submit: "Error al crear. Intentalo de nuevo" });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <Form title="Crear Speaker" fields={fields} buttonText="Crear Speaker" />
+    <Form
+      title="Crear Speaker"
+      fields={fields}
+      errors={errors}
+      values={values}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+      buttonText="Crear Speaker"
+    />
   );
 }

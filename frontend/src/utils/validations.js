@@ -70,3 +70,33 @@ export function validationEventForm(values) {
 
   return errors;
 }
+
+export function validationSpeakerForm(values) {
+  const errors = {};
+
+  //Validar el nombre
+  if (!values.firstname) {
+    errors.firstname = "El nombre es requerido";
+  }
+
+  //Validar apellido
+  if (!values.lastname) {
+    errors.lastname = "El apellido es requerido";
+  }
+
+  //Validar Biografia
+  if (!values.bio) {
+    errors.bio = "La Biografia es requerida";
+  } else if (values.bio.length <= 50) {
+    errors.bio = "La descripción debe ser max 50 caracteres";
+  }
+
+  //Validar conocimientos
+  if (!values.expertise) {
+    errors.expertise = "Los conocimientos son requeridos";
+  } else if (values.expertise.length <= 50) {
+    errors.expertise = "Los conocimientos deben ser max 50 caracteres";
+  }
+
+  return errors;
+}

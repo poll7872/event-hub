@@ -46,7 +46,7 @@ export function Speakers() {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Buscar evento..."
+                placeholder="Buscar speaker..."
                 className="border border-gray-300 rounded-lg py-2 pl-10 pr-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <SearchRegular className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-2xl" />
